@@ -11,7 +11,7 @@ import {
 import { CategoryBadge } from "@/components/CategoryBadge";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { Reveal } from "@/components/Reveal";
-import { formatDate, getAdjacent, getBlog } from "@/data/blogs";
+import { formatDate, getAdjacent, getBlog, type Blog } from "@/data/blogs";
 
 export const Route = createFileRoute("/blogs/$slug")({
   loader: ({ params }) => {
@@ -40,7 +40,7 @@ export const Route = createFileRoute("/blogs/$slug")({
 });
 
 function BlogArticle() {
-  const { blog } = Route.useLoaderData();
+  const { blog } = Route.useLoaderData() as { blog: Blog };
   const { prev, next } = getAdjacent(blog.slug);
 
   return (
