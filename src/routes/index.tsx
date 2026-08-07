@@ -6,11 +6,12 @@ import { BlogCard } from "@/components/BlogCard";
 import { ProjectCard } from "@/components/ProjectCard";
 import { StatCard } from "@/components/StatCard";
 import { Reveal, Stagger, StaggerItem } from "@/components/Reveal";
-import { blogs } from "@/data/blogs";
+import { getFeaturedPosts } from "@/lib/posts";
 import { projects } from "@/data/projects";
 import { stats, interests } from "@/data/about";
 
 export const Route = createFileRoute("/")({
+  loader: () => getFeaturedPosts(),
   head: () => ({
     meta: [
       { title: "PolicyLens — Aanya Monga · Policy Writing & Research" },
@@ -31,7 +32,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const featured = blogs.filter((b) => b.featured);
+  const featured = Route.useLoaderData();
 
   return (
     <>
@@ -65,7 +66,7 @@ function Index() {
 
         <Stagger className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((b) => (
-            <StaggerItem key={b.slug} className="h-full">
+            <StaggerItem key={b.id} className="h-full">
               <BlogCard blog={b} />
             </StaggerItem>
           ))}

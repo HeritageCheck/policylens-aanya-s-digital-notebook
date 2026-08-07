@@ -121,10 +121,7 @@
 }
 
 @utility grain-bg {
-  background-image: radial-gradient(
-      oklch(0.64 0.055 145 / 0.07) 1px,
-      transparent 1px
-    );
+  background-image: radial-gradient(oklch(0.64 0.055 145 / 0.07) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
@@ -138,6 +135,13 @@
     font-size: 1.0625rem;
     line-height: 1.85;
     color: color-mix(in oklab, var(--ink) 88%, transparent);
+  }
+
+  & > p:first-child {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--ink);
   }
 
   & h2 {

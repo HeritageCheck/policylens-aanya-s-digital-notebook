@@ -38,7 +38,7 @@ function ContactPage() {
         </p>
       </Reveal>
 
-      <Stagger className="mt-14 grid gap-5 sm:grid-cols-2">
+      <Stagger className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2">
         {contactLinks.map((c) => {
           const Icon = icons[c.icon];
           const inner = (

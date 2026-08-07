@@ -99,7 +99,8 @@ export const leadership: TimelineItem[] = [
   {
     period: "2026",
     title: "Editor, student policy review",
-    detail: "Commission and edit six essays per issue; run the writing workshop for new contributors.",
+    detail:
+      "Commission and edit six essays per issue; run the writing workshop for new contributors.",
   },
   {
     period: "2025 — present",
@@ -137,7 +138,12 @@ export const awards = [
 ];
 
 export const contactLinks = [
-  { label: "Email", value: "aanya.monga@policylens.in", href: "mailto:aanya.monga@policylens.in", icon: "mail" },
+  {
+    label: "Email",
+    value: "aanya.monga@policylens.in",
+    href: "mailto:aanya.monga@policylens.in",
+    icon: "mail",
+  },
   { label: "LinkedIn", value: "/in/aanyamonga", href: "https://linkedin.com", icon: "linkedin" },
   { label: "GitHub", value: "@aanyamonga", href: "https://github.com", icon: "github" },
   { label: "Location", value: "New Delhi, India", href: undefined, icon: "map" },

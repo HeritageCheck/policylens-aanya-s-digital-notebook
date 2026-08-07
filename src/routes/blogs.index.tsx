@@ -4,9 +4,10 @@ import { motion, AnimatePresence } from "motion/react";
 import { BlogCard } from "@/components/BlogCard";
 import { SearchBar } from "@/components/SearchBar";
 import { Reveal } from "@/components/Reveal";
-import { blogs, categories } from "@/data/blogs";
+import { categories, getPublishedPosts } from "@/lib/posts";
 
 export const Route = createFileRoute("/blogs/")({
+  loader: () => getPublishedPosts(),
   head: () => ({
     meta: [
       { title: "Blogs — Essays on Policy & Governance | PolicyLens" },
@@ -27,12 +28,13 @@ export const Route = createFileRoute("/blogs/")({
 });
 
 function BlogsPage() {
+  const posts = Route.useLoaderData();
   const [query, setQuery] = useState("");
   const [active, setActive] = useState<string>("All");
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return blogs.filter((b) => {
+    return posts.filter((b) => {
       const matchesCategory = active === "All" || b.category === active;
       const matchesQuery =
         !q ||
@@ -41,7 +43,7 @@ function BlogsPage() {
         b.category.toLowerCase().includes(q);
       return matchesCategory && matchesQuery;
     });
-  }, [query, active]);
+  }, [posts, query, active]);
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
@@ -88,7 +90,7 @@ function BlogsPage() {
         <AnimatePresence mode="popLayout">
           {filtered.map((b, i) => (
             <motion.div
-              key={b.slug}
+              key={b.id}
               layout
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}

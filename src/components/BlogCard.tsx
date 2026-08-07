@@ -1,25 +1,27 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Clock } from "lucide-react";
-import type { Blog } from "@/data/blogs";
-import { formatDate } from "@/data/blogs";
+import type { Post } from "@/lib/posts";
+import { formatDate } from "@/lib/posts";
 import { CategoryBadge } from "./CategoryBadge";
 
-export function BlogCard({ blog }: { blog: Blog }) {
+export function BlogCard({ blog }: { blog: Post }) {
   return (
     <Link
-      to="/blogs/$slug"
-      params={{ slug: blog.slug }}
+      to="/blogs/$postId"
+      params={{ postId: blog.id }}
       className="group block break-inside-avoid overflow-hidden rounded-3xl border border-border/70 bg-card shadow-soft transition-all duration-500 hover:-translate-y-1.5 hover:border-sage/40 hover:shadow-lift"
     >
-      <div className="relative aspect-16/10 overflow-hidden">
-        <img
-          src={blog.cover}
-          alt=""
-          loading="lazy"
-          width={1024}
-          height={640}
-          className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-        />
+      <div className="relative aspect-16/10 overflow-hidden bg-secondary">
+        {blog.coverUrl && (
+          <img
+            src={blog.coverUrl}
+            alt=""
+            loading="lazy"
+            width={1024}
+            height={640}
+            className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        )}
         <div className="absolute top-3.5 left-3.5">
           <CategoryBadge category={blog.category} tone="glass" />
         </div>
@@ -27,7 +29,7 @@ export function BlogCard({ blog }: { blog: Blog }) {
 
       <div className="p-6">
         <div className="flex items-center gap-3 text-xs text-muted-foreground">
-          <span>{formatDate(blog.date)}</span>
+          <span>{formatDate(blog.createdAt)}</span>
           <span className="size-1 rounded-full bg-border" />
           <span className="inline-flex items-center gap-1.5">
             <Clock className="size-3.5" strokeWidth={1.75} />

@@ -1,23 +1,18 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Clock,
-  Link2,
-  Linkedin,
-  Twitter,
-  Calendar,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock, Link2, Linkedin, Twitter, Calendar } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { CategoryBadge } from "@/components/CategoryBadge";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { Reveal } from "@/components/Reveal";
-import { formatDate, getAdjacent, getBlog, type Blog } from "@/data/blogs";
+import { formatDate, getAdjacentPosts, getPublishedPostById, slugify } from "@/lib/posts";
 
-export const Route = createFileRoute("/blogs/$slug")({
-  loader: ({ params }) => {
-    const blog = getBlog(params.slug);
+export const Route = createFileRoute("/blogs/$postId")({
+  loader: async ({ params }) => {
+    const blog = await getPublishedPostById(params.postId);
     if (!blog) throw notFound();
-    return { blog };
+    const { prev, next } = await getAdjacentPosts(params.postId);
+    return { blog, prev, next };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
@@ -39,9 +34,14 @@ export const Route = createFileRoute("/blogs/$slug")({
   component: BlogArticle,
 });
 
+const HEADING_REGEX = /^##\s+(.+)$/gm;
+
 function BlogArticle() {
-  const { blog } = Route.useLoaderData() as { blog: Blog };
-  const { prev, next } = getAdjacent(blog.slug);
+  const { blog, prev, next } = Route.useLoaderData();
+  const headings = Array.from(blog.content.matchAll(HEADING_REGEX)).map((m) => ({
+    text: m[1] ?? "",
+    id: slugify(m[1] ?? ""),
+  }));
 
   return (
     <article className="pb-8">
@@ -72,7 +72,7 @@ function BlogArticle() {
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Calendar className="size-4" strokeWidth={1.75} />
-                {formatDate(blog.date)}
+                {formatDate(blog.createdAt)}
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Clock className="size-4" strokeWidth={1.75} />
@@ -83,40 +83,43 @@ function BlogArticle() {
         </Reveal>
       </div>
 
-      <Reveal delay={0.06}>
-        <div className="mx-auto mt-10 max-w-5xl px-5 sm:px-8">
-          <div className="aspect-16/9 overflow-hidden rounded-[2rem] border border-border/60 shadow-soft">
-            <img
-              src={blog.cover}
-              alt=""
-              width={1024}
-              height={576}
-              className="size-full object-cover"
-            />
+      {blog.coverUrl && (
+        <Reveal delay={0.06}>
+          <div className="mx-auto mt-10 max-w-5xl px-5 sm:px-8">
+            <div className="aspect-16/9 overflow-hidden rounded-[2rem] border border-border/60 shadow-soft">
+              <img
+                src={blog.coverUrl}
+                alt=""
+                width={1024}
+                height={576}
+                className="size-full object-cover"
+              />
+            </div>
           </div>
-        </div>
-      </Reveal>
+        </Reveal>
+      )}
 
-      <div className="mx-auto mt-14 grid max-w-6xl gap-12 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div
+        className={`mx-auto mt-14 grid max-w-6xl gap-12 px-5 sm:px-8 ${
+          headings.length > 0 ? "lg:grid-cols-[minmax(0,1fr)_16rem]" : ""
+        }`}
+      >
         <div className="prose-article max-w-2xl lg:mx-auto">
-          <p className="font-display text-xl leading-relaxed text-foreground">{blog.lede}</p>
-
-          {blog.sections.map((section) => (
-            <section key={section.id} id={section.id} className="scroll-mt-28">
-              <h2>{section.heading}</h2>
-              {section.blocks.map((block, i) => {
-                if (block.type === "p") return <p key={i}>{block.text}</p>;
-                if (block.type === "quote") return <blockquote key={i}>{block.text}</blockquote>;
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={{
+              h2: ({ children }) => {
+                const text = String(children);
                 return (
-                  <ul key={i}>
-                    {block.items.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
+                  <h2 id={slugify(text)} className="scroll-mt-28">
+                    {children}
+                  </h2>
                 );
-              })}
-            </section>
-          ))}
+              },
+            }}
+          >
+            {blog.content}
+          </ReactMarkdown>
 
           <div className="mt-14 flex flex-wrap items-center gap-3 border-t border-border/70 pt-8">
             <span className="text-sm text-muted-foreground">Share this essay</span>
@@ -133,31 +136,33 @@ function BlogArticle() {
           </div>
         </div>
 
-        <aside className="hidden lg:block">
-          <div className="sticky top-28 rounded-3xl border border-border/70 bg-card p-6 shadow-soft">
-            <h2 className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
-              On this page
-            </h2>
-            <nav className="mt-4 flex flex-col gap-3 text-sm">
-              {blog.sections.map((s) => (
-                <a
-                  key={s.id}
-                  href={`#${s.id}`}
-                  className="border-l-2 border-border pl-3 leading-snug text-muted-foreground transition-colors hover:border-sage hover:text-foreground"
-                >
-                  {s.heading}
-                </a>
-              ))}
-            </nav>
-          </div>
-        </aside>
+        {headings.length > 0 && (
+          <aside className="hidden lg:block">
+            <div className="sticky top-28 rounded-3xl border border-border/70 bg-card p-6 shadow-soft">
+              <h2 className="text-xs font-semibold tracking-[0.14em] text-muted-foreground uppercase">
+                On this page
+              </h2>
+              <nav className="mt-4 flex flex-col gap-3 text-sm">
+                {headings.map((h) => (
+                  <a
+                    key={h.id}
+                    href={`#${h.id}`}
+                    className="border-l-2 border-border pl-3 leading-snug text-muted-foreground transition-colors hover:border-sage hover:text-foreground"
+                  >
+                    {h.text}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </aside>
+        )}
       </div>
 
       <div className="mx-auto mt-20 grid max-w-4xl gap-4 px-5 sm:px-8 sm:grid-cols-2">
         {prev ? (
           <Link
-            to="/blogs/$slug"
-            params={{ slug: prev.slug }}
+            to="/blogs/$postId"
+            params={{ postId: prev.id }}
             className="group rounded-3xl border border-border/70 bg-card p-6 shadow-soft transition-all duration-400 hover:-translate-y-1 hover:border-sage/40 hover:shadow-lift"
           >
             <span className="inline-flex items-center gap-1.5 text-xs tracking-[0.12em] text-muted-foreground uppercase">
@@ -171,8 +176,8 @@ function BlogArticle() {
 
         {next && (
           <Link
-            to="/blogs/$slug"
-            params={{ slug: next.slug }}
+            to="/blogs/$postId"
+            params={{ postId: next.id }}
             className="group rounded-3xl border border-border/70 bg-card p-6 text-right shadow-soft transition-all duration-400 hover:-translate-y-1 hover:border-sage/40 hover:shadow-lift"
           >
             <span className="inline-flex items-center gap-1.5 text-xs tracking-[0.12em] text-muted-foreground uppercase">

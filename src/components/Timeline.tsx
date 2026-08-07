@@ -13,9 +13,7 @@ export function Timeline({ items }: { items: TimelineItem[] }) {
               {item.period}
             </span>
             <h3 className="mt-2 text-lg leading-snug">{item.title}</h3>
-            {item.place && (
-              <p className="mt-1 text-sm text-foreground/70">{item.place}</p>
-            )}
+            {item.place && <p className="mt-1 text-sm text-foreground/70">{item.place}</p>}
             <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{item.detail}</p>
           </div>
         </StaggerItem>

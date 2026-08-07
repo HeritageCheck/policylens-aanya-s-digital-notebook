@@ -3,7 +3,7 @@ import { ProjectCard } from "@/components/ProjectCard";
 import { Reveal, Stagger, StaggerItem } from "@/components/Reveal";
 import { projects } from "@/data/projects";
 
-export const Route = createFileRoute("/projects")({
+export const Route = createFileRoute("/projects/")({
   head: () => ({
     meta: [
       { title: "Projects — HeritageCheck & More | PolicyLens" },

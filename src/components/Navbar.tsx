@@ -1,7 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
-import { Menu, X, Glasses } from "lucide-react";
+import { Menu, X, Glasses, PenLine } from "lucide-react";
 
 const links = [
   { to: "/", label: "Home" },
@@ -59,6 +59,13 @@ export function Navbar() {
               </Link>
             );
           })}
+          <Link
+            to="/write"
+            className="ml-1 inline-flex items-center gap-1.5 rounded-full border border-sage/40 bg-sage-soft/60 px-4 py-2 text-sm font-medium text-sage transition-colors hover:bg-sage-soft"
+          >
+            <PenLine className="size-3.5" strokeWidth={1.75} />
+            Write
+          </Link>
         </div>
 
         <button
@@ -92,6 +99,13 @@ export function Navbar() {
                   {l.label}
                 </Link>
               ))}
+              <Link
+                to="/write"
+                className="rounded-xl px-3 py-2.5 text-sm font-medium text-sage transition-colors hover:bg-secondary"
+                activeProps={{ className: "bg-secondary" }}
+              >
+                Write
+              </Link>
             </div>
           </motion.div>
         )}

@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/data/projects";
 
@@ -6,7 +7,9 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <article
       className={`group flex h-full flex-col overflow-hidden rounded-3xl border bg-card transition-all duration-500 hover:-translate-y-1.5 hover:shadow-lift ${
-        planned ? "border-dashed border-border" : "border-border/70 shadow-soft hover:border-sage/40"
+        planned
+          ? "border-dashed border-border"
+          : "border-border/70 shadow-soft hover:border-sage/40"
       }`}
     >
       {project.thumbnail ? (
@@ -52,16 +55,20 @@ export function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
 
-        <button
-          type="button"
-          disabled={planned}
-          className="mt-6 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-sage transition-opacity disabled:cursor-not-allowed disabled:opacity-45"
-        >
-          {planned ? "Coming soon" : "Learn more"}
-          {!planned && (
+        {planned ? (
+          <span className="mt-6 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-sage opacity-45">
+            Coming soon
+          </span>
+        ) : (
+          <Link
+            to="/projects/$slug"
+            params={{ slug: project.slug }}
+            className="group mt-6 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-sage"
+          >
+            Learn more
             <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          )}
-        </button>
+          </Link>
+        )}
       </div>
     </article>
   );

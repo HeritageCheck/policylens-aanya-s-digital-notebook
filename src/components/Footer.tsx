@@ -13,8 +13,8 @@ export function Footer() {
             <span className="font-display text-lg">PolicyLens</span>
           </div>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-            Writing, research, and projects on public policy, governance, and social impact by
-            Aanya Monga.
+            Writing, research, and projects on public policy, governance, and social impact by Aanya
+            Monga.
           </p>
           <p className="mt-6 font-display text-base text-foreground/80 italic">
             “Research begins with curiosity.”
