@@ -4,18 +4,23 @@ import { Timeline } from "@/components/Timeline";
 import { AchievementCard } from "@/components/AchievementCard";
 import { StatCard } from "@/components/StatCard";
 import { Reveal, Stagger, StaggerItem } from "@/components/Reveal";
+import { getPublishedPosts } from "@/lib/posts";
 import {
   academicJourney,
   awards,
   competitions,
+  getStats,
   interests,
   leadership,
   researchInterests,
   skills,
-  stats,
 } from "@/data/about";
 
 export const Route = createFileRoute("/about")({
+  loader: async () => {
+    const posts = await getPublishedPosts();
+    return { blogsCount: posts.length };
+  },
   head: () => ({
     meta: [
       { title: "About Aanya Monga — The Third Eye Economist" },
@@ -36,6 +41,9 @@ export const Route = createFileRoute("/about")({
 });
 
 function AboutPage() {
+  const { blogsCount } = Route.useLoaderData();
+  const stats = getStats(blogsCount);
+
   return (
     <div className="mx-auto max-w-5xl px-5 py-16 sm:px-8 sm:py-24">
       <Reveal>
@@ -52,7 +60,7 @@ function AboutPage() {
         </p>
       </Reveal>
 
-      <div className="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="mt-14 grid grid-cols-3 gap-4">
         {stats.map((s) => (
           <StatCard key={s.label} value={s.value} label={s.label} suffix={s.suffix} />
         ))}

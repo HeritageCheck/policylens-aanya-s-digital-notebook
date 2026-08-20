@@ -52,9 +52,9 @@ export function Footer() {
           </h3>
           <div className="mt-4 flex gap-2.5">
             {[
-              { href: "mailto:aanya.monga@policylens.in", Icon: Mail, label: "Email" },
+              { href: "mailto:checkheritage@gmail.com", Icon: Mail, label: "Email" },
               { href: "https://linkedin.com", Icon: Linkedin, label: "LinkedIn" },
-              { href: "https://github.com", Icon: Github, label: "GitHub" },
+              { href: "https://github.com/HeritageCheck", Icon: Github, label: "GitHub" },
             ].map(({ href, Icon, label }) => (
               <a
                 key={label}

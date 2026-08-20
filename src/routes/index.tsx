@@ -6,12 +6,15 @@ import { BlogCard } from "@/components/BlogCard";
 import { ProjectCard } from "@/components/ProjectCard";
 import { StatCard } from "@/components/StatCard";
 import { Reveal, Stagger, StaggerItem } from "@/components/Reveal";
-import { getFeaturedPosts } from "@/lib/posts";
+import { getFeaturedPosts, getPublishedPosts } from "@/lib/posts";
 import { projects } from "@/data/projects";
-import { stats, interests } from "@/data/about";
+import { getStats, interests } from "@/data/about";
 
 export const Route = createFileRoute("/")({
-  loader: () => getFeaturedPosts(),
+  loader: async () => {
+    const [featured, allPosts] = await Promise.all([getFeaturedPosts(), getPublishedPosts()]);
+    return { featured, blogsCount: allPosts.length };
+  },
   head: () => ({
     meta: [
       { title: "The Third Eye Economist — Aanya Monga · Policy Writing & Research" },
@@ -32,14 +35,15 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const featured = Route.useLoaderData();
+  const { featured, blogsCount } = Route.useLoaderData();
+  const stats = getStats(blogsCount);
 
   return (
     <>
       <Hero />
 
       <section className="mx-auto max-w-6xl px-5 sm:px-8">
-        <Stagger className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <Stagger className="grid grid-cols-3 gap-4">
           {stats.map((s) => (
             <StaggerItem key={s.label}>
               <StatCard value={s.value} label={s.label} suffix={s.suffix} />

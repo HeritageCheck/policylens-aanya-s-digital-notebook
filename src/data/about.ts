@@ -1,7 +1,8 @@
-export const stats = [
-  { label: "Research Papers", value: 6, suffix: "" },
-  { label: "Blogs Written", value: 24, suffix: "+" },
-  { label: "Projects", value: 4, suffix: "" },
+import { projects } from "@/data/projects";
+
+export const getStats = (blogsCount: number) => [
+  { label: "Blogs Written", value: blogsCount, suffix: "" },
+  { label: "Projects", value: projects.length, suffix: "" },
   { label: "Competitions", value: 11, suffix: "" },
 ];
 
@@ -140,11 +141,16 @@ export const awards = [
 export const contactLinks = [
   {
     label: "Email",
-    value: "aanya.monga@policylens.in",
-    href: "mailto:aanya.monga@policylens.in",
+    value: "checkheritage@gmail.com",
+    href: "mailto:checkheritage@gmail.com",
     icon: "mail",
   },
   { label: "LinkedIn", value: "/in/aanyamonga", href: "https://linkedin.com", icon: "linkedin" },
-  { label: "GitHub", value: "@aanyamonga", href: "https://github.com", icon: "github" },
+  {
+    label: "GitHub",
+    value: "HeritageCheck",
+    href: "https://github.com/HeritageCheck",
+    icon: "github",
+  },
   { label: "Location", value: "New Delhi, India", href: undefined, icon: "map" },
 ] as const;
