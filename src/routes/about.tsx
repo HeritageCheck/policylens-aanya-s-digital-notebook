@@ -18,13 +18,13 @@ import {
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Aanya Monga — PolicyLens" },
+      { title: "About Aanya Monga — The Third Eye Economist" },
       {
         name: "description",
         content:
           "Academic journey, research interests, skills, competitions, leadership roles and awards of Aanya Monga, a student of public policy and governance.",
       },
-      { property: "og:title", content: "About Aanya Monga — PolicyLens" },
+      { property: "og:title", content: "About Aanya Monga — The Third Eye Economist" },
       {
         property: "og:description",
         content:

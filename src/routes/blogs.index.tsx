@@ -10,13 +10,13 @@ export const Route = createFileRoute("/blogs/")({
   loader: () => getPublishedPosts(),
   head: () => ({
     meta: [
-      { title: "Blogs — Essays on Policy & Governance | PolicyLens" },
+      { title: "Blogs — Essays on Policy & Governance | The Third Eye Economist" },
       {
         name: "description",
         content:
           "Long-form essays by Aanya Monga on public policy, governance, education, society, international relations, environment and technology policy.",
       },
-      { property: "og:title", content: "Blogs — PolicyLens" },
+      { property: "og:title", content: "Blogs — The Third Eye Economist" },
       {
         property: "og:description",
         content:

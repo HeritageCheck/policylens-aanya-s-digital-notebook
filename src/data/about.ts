@@ -104,7 +104,7 @@ export const leadership: TimelineItem[] = [
   },
   {
     period: "2025 — present",
-    title: "Founder, PolicyLens reading circle",
+    title: "Founder, The Third Eye Economist reading circle",
     detail: "A weekly group that reads one primary policy document together, start to finish.",
   },
   {

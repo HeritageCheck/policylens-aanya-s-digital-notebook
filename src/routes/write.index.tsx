@@ -8,7 +8,7 @@ import { deletePost, formatDate, getMyPosts } from "@/lib/posts";
 
 export const Route = createFileRoute("/write/")({
   head: () => ({
-    meta: [{ title: "Write — PolicyLens" }, { name: "robots", content: "noindex" }],
+    meta: [{ title: "Write — The Third Eye Economist" }, { name: "robots", content: "noindex" }],
   }),
   component: () => (
     <RequireAuth>

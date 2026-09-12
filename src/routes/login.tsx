@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
-    meta: [{ title: "Sign in — PolicyLens" }, { name: "robots", content: "noindex" }],
+    meta: [{ title: "Sign in — The Third Eye Economist" }, { name: "robots", content: "noindex" }],
   }),
   component: LoginPage,
 });

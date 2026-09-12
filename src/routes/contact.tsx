@@ -8,13 +8,13 @@ const icons = { mail: Mail, linkedin: Linkedin, github: Github, map: MapPin };
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact Aanya Monga — PolicyLens" },
+      { title: "Contact Aanya Monga — The Third Eye Economist" },
       {
         name: "description",
         content:
           "Get in touch with Aanya Monga by email, LinkedIn or GitHub for research collaborations, writing and policy conversations.",
       },
-      { property: "og:title", content: "Contact — PolicyLens" },
+      { property: "og:title", content: "Contact — The Third Eye Economist" },
       {
         property: "og:description",
         content: "Reach Aanya Monga by email, LinkedIn or GitHub.",

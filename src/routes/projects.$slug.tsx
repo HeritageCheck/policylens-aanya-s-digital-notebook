@@ -12,13 +12,13 @@ export const Route = createFileRoute("/projects/$slug")({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Project not found — PolicyLens" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Project not found — The Third Eye Economist" }, { name: "robots", content: "noindex" }],
       };
     }
     const { project } = loaderData;
     return {
       meta: [
-        { title: `${project.title} — PolicyLens` },
+        { title: `${project.title} — The Third Eye Economist` },
         { name: "description", content: project.description },
         { property: "og:title", content: project.title },
         { property: "og:description", content: project.description },

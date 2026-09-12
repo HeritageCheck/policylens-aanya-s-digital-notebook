@@ -7,7 +7,7 @@ import { createPost, type PostInput } from "@/lib/posts";
 
 export const Route = createFileRoute("/write/new")({
   head: () => ({
-    meta: [{ title: "New post — PolicyLens" }, { name: "robots", content: "noindex" }],
+    meta: [{ title: "New post — The Third Eye Economist" }, { name: "robots", content: "noindex" }],
   }),
   component: () => (
     <RequireAuth>

@@ -17,13 +17,13 @@ export const Route = createFileRoute("/blogs/$postId")({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Essay not found — PolicyLens" }, { name: "robots", content: "noindex" }],
+        meta: [{ title: "Essay not found — The Third Eye Economist" }, { name: "robots", content: "noindex" }],
       };
     }
     const { blog } = loaderData;
     return {
       meta: [
-        { title: `${blog.title} — PolicyLens` },
+        { title: `${blog.title} — The Third Eye Economist` },
         { name: "description", content: blog.description },
         { property: "og:title", content: blog.title },
         { property: "og:description", content: blog.description },

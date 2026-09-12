@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Github, Linkedin, Mail, Glasses } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
+import logoMark from "@/assets/logo-mark.png";
 
 export function Footer() {
   return (
@@ -7,10 +8,10 @@ export function Footer() {
       <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="flex size-9 items-center justify-center rounded-xl bg-sage-soft text-sage">
-              <Glasses className="size-4.5" strokeWidth={1.75} />
+            <span className="flex size-9 shrink-0 items-center justify-center">
+              <img src={logoMark} alt="" className="size-9 object-contain" />
             </span>
-            <span className="font-display text-lg">PolicyLens</span>
+            <span className="font-display text-lg">The Third Eye Economist</span>
           </div>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
             Writing, research, and projects on public policy, governance, and social impact by Aanya
@@ -71,7 +72,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-border/70 px-5 py-6 text-center text-xs text-muted-foreground sm:px-8">
-        © 2026 Aanya Monga · PolicyLens
+        © 2026 Aanya Monga · The Third Eye Economist
       </div>
     </footer>
   );

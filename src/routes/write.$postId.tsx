@@ -7,7 +7,7 @@ import { getPostById, updatePost, type PostInput } from "@/lib/posts";
 
 export const Route = createFileRoute("/write/$postId")({
   head: () => ({
-    meta: [{ title: "Edit post — PolicyLens" }, { name: "robots", content: "noindex" }],
+    meta: [{ title: "Edit post — The Third Eye Economist" }, { name: "robots", content: "noindex" }],
   }),
   component: () => (
     <RequireAuth>

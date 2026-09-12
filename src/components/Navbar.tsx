@@ -1,7 +1,8 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
-import { Menu, X, Glasses, PenLine } from "lucide-react";
+import { Menu, X, PenLine } from "lucide-react";
+import logoMark from "@/assets/logo-mark.png";
 
 const links = [
   { to: "/", label: "Home" },
@@ -33,10 +34,12 @@ export function Navbar() {
     >
       <nav className="mx-auto flex h-18 max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
         <Link to="/" className="group flex items-center gap-2.5">
-          <span className="flex size-9 items-center justify-center rounded-xl bg-sage-soft text-sage transition-transform duration-300 group-hover:-rotate-6">
-            <Glasses className="size-4.5" strokeWidth={1.75} />
+          <span className="flex size-9 shrink-0 items-center justify-center transition-transform duration-300 group-hover:-rotate-6">
+            <img src={logoMark} alt="" className="size-9 object-contain" />
           </span>
-          <span className="font-display text-lg tracking-tight">PolicyLens</span>
+          <span className="font-display text-base leading-tight tracking-tight sm:text-lg">
+            The Third Eye Economist
+          </span>
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">

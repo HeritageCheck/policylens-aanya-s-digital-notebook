@@ -82,14 +82,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "PolicyLens — Aanya Monga" },
+      { title: "The Third Eye Economist — Aanya Monga" },
       {
         name: "description",
         content:
-          "PolicyLens — essays, research and projects on public policy and governance by Aanya Monga.",
+          "The Third Eye Economist — essays, research and projects on public policy and governance by Aanya Monga.",
       },
       { name: "author", content: "Aanya Monga" },
-      { property: "og:title", content: "PolicyLens — Aanya Monga" },
+      { property: "og:title", content: "The Third Eye Economist — Aanya Monga" },
       {
         property: "og:description",
         content:
@@ -109,7 +109,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400&family=Work+Sans:ital,wght@0,300..600;1,400&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
   }),
 
