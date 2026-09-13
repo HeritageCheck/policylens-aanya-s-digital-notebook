@@ -1,8 +1,8 @@
-# The Third Eye Economist: Aanya's Digital Notebook
+# The 3rd Eye Economist: Aanya's Digital Notebook
 
-Lovable Prompt — The Third Eye Economist Portfolio Website (Frontend Only)
+Lovable Prompt — The 3rd Eye Economist Portfolio Website (Frontend Only)
 
-Build a beautiful, modern, cozy, and premium personal portfolio website called The Third Eye Economist for Aanya Monga.
+Build a beautiful, modern, cozy, and premium personal portfolio website called The 3rd Eye Economist for Aanya Monga.
 
 The website should feel like a blend of a personal journal, research notebook, and academic portfolio. The design should be elegant, calm, minimal, and highly readable with smooth animations.
 
@@ -52,7 +52,7 @@ Navigation
 
 Sticky navigation bar with:
 
-The Third Eye Economist logo
+The 3rd Eye Economist logo
 
 Home
 
@@ -245,7 +245,7 @@ Footer
 
 Include:
 
-The Third Eye Economist
+The 3rd Eye Economist
 
 © 2026 Aanya Monga
 

@@ -11,7 +11,7 @@ export function Footer() {
             <span className="flex size-9 shrink-0 items-center justify-center">
               <img src={logoMark} alt="" className="size-9 object-contain" />
             </span>
-            <span className="font-display text-lg">The Third Eye Economist</span>
+            <span className="font-display text-lg">The 3rd Eye Economist</span>
           </div>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
             Writing, research, and projects on public policy, governance, and social impact by Aanya
@@ -72,7 +72,7 @@ export function Footer() {
       </div>
 
       <div className="border-t border-border/70 px-5 py-6 text-center text-xs text-muted-foreground sm:px-8">
-        © 2026 Aanya Monga · The Third Eye Economist
+        © 2026 Aanya Monga · The 3rd Eye Economist
       </div>
     </footer>
   );

@@ -17,13 +17,13 @@ export const Route = createFileRoute("/")({
   },
   head: () => ({
     meta: [
-      { title: "The Third Eye Economist — Aanya Monga · Policy Writing & Research" },
+      { title: "The 3rd Eye Economist — Aanya Monga · Policy Writing & Research" },
       {
         name: "description",
         content:
-          "The Third Eye Economist is the portfolio of Aanya Monga: essays, research and projects on public policy, governance, education and climate adaptation.",
+          "The 3rd Eye Economist is the portfolio of Aanya Monga: essays, research and projects on public policy, governance, education and climate adaptation.",
       },
-      { property: "og:title", content: "The Third Eye Economist — Aanya Monga" },
+      { property: "og:title", content: "The 3rd Eye Economist — Aanya Monga" },
       {
         property: "og:description",
         content:
@@ -88,7 +88,7 @@ function Index() {
                 I read primary documents, then try to explain them plainly.
               </h2>
               <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
-                The Third Eye Economist started as a reading log. It is now where I keep my
+                The 3rd Eye Economist started as a reading log. It is now where I keep my
                 essays, research notes, and the projects that grew out of them — mostly on
                 welfare delivery, urban governance, and how the state uses data.
               </p>

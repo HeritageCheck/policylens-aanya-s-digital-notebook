@@ -38,7 +38,7 @@ export function Navbar() {
             <img src={logoMark} alt="" className="size-9 object-contain" />
           </span>
           <span className="font-display text-base leading-tight tracking-tight sm:text-lg">
-            The Third Eye Economist
+            The 3rd Eye Economist
           </span>
         </Link>
 

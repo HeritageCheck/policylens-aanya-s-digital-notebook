@@ -82,14 +82,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The Third Eye Economist — Aanya Monga" },
+      { title: "The 3rd Eye Economist — Aanya Monga" },
       {
         name: "description",
         content:
-          "The Third Eye Economist — essays, research and projects on public policy and governance by Aanya Monga.",
+          "The 3rd Eye Economist — essays, research and projects on public policy and governance by Aanya Monga.",
       },
       { name: "author", content: "Aanya Monga" },
-      { property: "og:title", content: "The Third Eye Economist — Aanya Monga" },
+      { property: "og:title", content: "The 3rd Eye Economist — Aanya Monga" },
       {
         property: "og:description",
         content:

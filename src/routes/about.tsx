@@ -23,13 +23,13 @@ export const Route = createFileRoute("/about")({
   },
   head: () => ({
     meta: [
-      { title: "About Aanya Monga — The Third Eye Economist" },
+      { title: "About Aanya Monga — The 3rd Eye Economist" },
       {
         name: "description",
         content:
           "Academic journey, research interests, skills, competitions, leadership roles and awards of Aanya Monga, a student of public policy and governance.",
       },
-      { property: "og:title", content: "About Aanya Monga — The Third Eye Economist" },
+      { property: "og:title", content: "About Aanya Monga — The 3rd Eye Economist" },
       {
         property: "og:description",
         content:
