@@ -148,7 +148,7 @@ export const contactLinks = [
   { label: "LinkedIn", value: "/in/aanyamonga", href: "https://linkedin.com", icon: "linkedin" },
   {
     label: "GitHub",
-    value: "HeritageCheck",
+    value: "PastProof",
     href: "https://github.com/HeritageCheck",
     icon: "github",
   },

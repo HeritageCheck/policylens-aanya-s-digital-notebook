@@ -6,16 +6,16 @@ import { projects } from "@/data/projects";
 export const Route = createFileRoute("/projects/")({
   head: () => ({
     meta: [
-      { title: "Projects — HeritageCheck & More | The 3rd Eye Economist" },
+      { title: "Projects — PastProof & More | The 3rd Eye Economist" },
       {
         name: "description",
         content:
-          "Research tools and policy projects by Aanya Monga, including HeritageCheck, a citizen-facing condition index for protected heritage sites.",
+          "Research tools and policy projects by Aanya Monga, including PastProof, a citizen-facing condition index for protected heritage sites.",
       },
       { property: "og:title", content: "Projects — The 3rd Eye Economist" },
       {
         property: "og:description",
-        content: "Research tools and policy projects by Aanya Monga, including HeritageCheck.",
+        content: "Research tools and policy projects by Aanya Monga, including PastProof.",
       },
     ],
   }),
