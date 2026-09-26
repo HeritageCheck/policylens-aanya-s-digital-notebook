@@ -5,6 +5,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { BlogCard } from "@/components/BlogCard";
 import { ProjectCard } from "@/components/ProjectCard";
 import { StatCard } from "@/components/StatCard";
+import { ChronoIris } from "@/components/ChronoIris";
 import { Reveal, Stagger, StaggerItem } from "@/components/Reveal";
 import { getFeaturedPosts, getPublishedPosts } from "@/lib/posts";
 import { projects } from "@/data/projects";
@@ -13,7 +14,7 @@ import { getStats, interests } from "@/data/about";
 export const Route = createFileRoute("/")({
   loader: async () => {
     const [featured, allPosts] = await Promise.all([getFeaturedPosts(), getPublishedPosts()]);
-    return { featured, blogsCount: allPosts.length };
+    return { featured, posts: allPosts, blogsCount: allPosts.length };
   },
   head: () => ({
     meta: [
@@ -35,7 +36,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { featured, blogsCount } = Route.useLoaderData();
+  const { featured, posts, blogsCount } = Route.useLoaderData();
   const stats = getStats(blogsCount);
 
   return (
@@ -50,6 +51,10 @@ function Index() {
             </StaggerItem>
           ))}
         </Stagger>
+      </section>
+
+      <section className="mx-auto mt-28 max-w-6xl px-5 sm:px-8">
+        <ChronoIris posts={posts} />
       </section>
 
       <section className="mx-auto mt-28 max-w-6xl px-5 sm:px-8">

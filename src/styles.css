@@ -144,6 +144,18 @@
     color: var(--ink);
   }
 
+  /* Burgundy drop-cap, reached via the Chrono-Iris aperture transition. */
+  & > p:first-child::first-letter {
+    float: left;
+    padding-top: 0.03em;
+    padding-right: 0.09em;
+    font-family: var(--font-display);
+    font-size: 3.4em;
+    line-height: 0.82;
+    font-weight: 600;
+    color: #800020;
+  }
+
   & h2 {
     margin-top: 2.4em;
     margin-bottom: 0.6em;
@@ -168,15 +180,36 @@
     color: color-mix(in oklab, var(--ink) 88%, transparent);
   }
 
+  /* Margin citation notes — burgundy accent, offset into the margin on wide screens. */
   & blockquote {
+    position: relative;
     margin-block: 1.8em;
     padding: 1.25rem 1.5rem;
-    border-left: 3px solid var(--sage);
+    border-left: 3px solid #800020;
     border-radius: 0 1rem 1rem 0;
-    background: color-mix(in oklab, var(--sage-soft) 35%, transparent);
+    background: color-mix(in oklab, #80002012 35%, transparent);
     font-family: var(--font-display);
     font-size: 1.1rem;
     line-height: 1.7;
+  }
+
+  & blockquote::before {
+    content: "Note";
+    display: block;
+    margin-bottom: 0.4em;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #800020;
+  }
+
+  @media (min-width: 1024px) {
+    & blockquote {
+      margin-inline: -1.75rem;
+      padding-inline: 1.75rem;
+    }
   }
 
   & strong {
