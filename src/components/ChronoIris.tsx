@@ -3,18 +3,19 @@ import type { PointerEvent as ReactPointerEvent, WheelEvent as ReactWheelEvent }
 import { useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import type { Post } from "@/lib/posts";
+import { guillocheParamsForPost } from "@/lib/guilloche";
+import { GuillocheEye } from "@/components/GuillocheEye";
 
 // Chrono-Iris dial — a self-contained, art-directed palette distinct from the
-// rest of the site's light theme, per the Chrono-Iris spec.
-const OBSIDIAN = "#0D0714";
-const LAVENDER = "#A94A61";
-const GOLD = "#C9A227";
+// rest of the site's light theme, per the Guilloche Chrono-Iris spec.
+const OBSIDIAN = "#0A0512";
+const LAVENDER = "#C4A1D8";
+const GOLD = "#D4AF37";
 const BURGUNDY = "#800020";
-const WINE = "#5B1E2F";
 
 const WHEEL_SENSITIVITY = 0.32;
 const SNAP_IDLE_MS = 160;
-const EXPLODE_MS = 650;
+const EXPLODE_MS = 700;
 const MAX_ITEMS = 12;
 
 /** Shortest signed delta (in degrees) to rotate `from` onto `to`, in (-180, 180]. */
@@ -146,6 +147,10 @@ export function ChronoIris({ posts }: { posts: Post[] }) {
   };
 
   const active = activeIndex >= 0 ? items[activeIndex] : undefined;
+  const eyeParams = useMemo(
+    () => guillocheParamsForPost(active?.id ?? "third-eye-economist"),
+    [active?.id],
+  );
 
   if (count === 0) return null;
 
@@ -165,9 +170,9 @@ export function ChronoIris({ posts }: { posts: Post[] }) {
           className="mt-3 font-display text-3xl leading-tight sm:text-4xl"
           style={{ color: "#F4E9EF" }}
         >
-          Scroll, or drag, through the archive.
+          A guilloche eye that redraws itself with every essay.
         </h2>
-        <p className="mt-3 text-sm leading-relaxed" style={{ color: "#C9B8C6" }}>
+        <p className="mt-3 text-sm leading-relaxed" style={{ color: "#B7A6C2" }}>
           Every essay sits on the dial in the order it was written. Turn it to read, click the
           centre to open.
         </p>
@@ -185,39 +190,75 @@ export function ChronoIris({ posts }: { posts: Post[] }) {
         onPointerCancel={endDrag}
         onPointerLeave={endDrag}
       >
-        {/* Concentric ring geometry */}
-        {[0.92, 0.66, 0.4].map((scale, i) => (
-          <div
-            key={scale}
-            className="pointer-events-none absolute top-1/2 left-1/2 rounded-full"
-            style={{
-              width: size * scale,
-              height: size * scale,
-              transform: "translate(-50%, -50%)",
-              border: `1px solid ${i % 2 === 0 ? LAVENDER : GOLD}`,
-              opacity: 0.22,
-            }}
-          />
-        ))}
-
-        {/* 12 o'clock reticle */}
+        {/* 12 o'clock hairline reticle */}
         <motion.div
-          className="pointer-events-none absolute top-2 left-1/2 z-20"
+          className="pointer-events-none absolute top-1 left-1/2 z-20"
           style={{ transform: "translateX(-50%)" }}
-          animate={{ opacity: [0.65, 1, 0.65], scale: [1, 1.18, 1] }}
+          animate={{ opacity: [0.7, 1, 0.7] }}
           transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
         >
           <div
             style={{
+              width: 1,
+              height: 22,
+              background: BURGUNDY,
+              boxShadow: `0 0 6px ${BURGUNDY}`,
+            }}
+          />
+          <div
+            style={{
               width: 0,
               height: 0,
-              borderLeft: "6px solid transparent",
-              borderRight: "6px solid transparent",
-              borderTop: `10px solid ${BURGUNDY}`,
-              filter: `drop-shadow(0 0 6px ${BURGUNDY})`,
+              margin: "0 auto",
+              borderLeft: "4px solid transparent",
+              borderRight: "4px solid transparent",
+              borderTop: `7px solid ${BURGUNDY}`,
             }}
           />
         </motion.div>
+
+        {/* The parametric guilloche eye, morphing (R, r, d) with the active post */}
+        <GuillocheEye target={eyeParams} exploding={exploding} size={size * 0.86} />
+
+        {/* Central void — keeps the thesis quote legible over the fine line art */}
+        <button
+          type="button"
+          onClick={() => explode(active)}
+          aria-label={active ? `Open "${active.title}"` : "Open essay"}
+          className="absolute top-1/2 left-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-center transition-transform duration-300 hover:scale-[1.03]"
+          style={{
+            width: size * 0.34,
+            height: size * 0.34,
+            background: `radial-gradient(circle at 50% 45%, ${OBSIDIAN} 55%, ${OBSIDIAN}00 100%)`,
+            boxShadow: `inset 0 0 30px #000000aa, 0 0 22px ${BURGUNDY}55`,
+          }}
+        >
+          <AnimatePresence mode="wait">
+            {active && (
+              <motion.div
+                key={active.id}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="px-6"
+              >
+                <p
+                  className="font-display text-[13px] leading-snug italic sm:text-sm"
+                  style={{ color: "#F1E4EE" }}
+                >
+                  “{active.description}”
+                </p>
+                <p
+                  className="mt-3 text-[10px] font-semibold tracking-[0.14em] uppercase"
+                  style={{ color: GOLD }}
+                >
+                  {active.title}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </button>
 
         {/* Ring items */}
         {items.map((post, i) => {
@@ -257,47 +298,6 @@ export function ChronoIris({ posts }: { posts: Post[] }) {
             </motion.button>
           );
         })}
-
-        {/* Central pupil */}
-        <button
-          type="button"
-          onClick={() => explode(active)}
-          aria-label={active ? `Open "${active.title}"` : "Open essay"}
-          className="absolute top-1/2 left-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-center transition-transform duration-300 hover:scale-[1.03]"
-          style={{
-            width: size * 0.38,
-            height: size * 0.38,
-            background: `radial-gradient(circle at 50% 42%, ${WINE}, ${OBSIDIAN} 72%)`,
-            boxShadow: `inset 0 0 34px ${WINE}, 0 0 30px ${BURGUNDY}66`,
-            border: `1px solid ${BURGUNDY}66`,
-          }}
-        >
-          <AnimatePresence mode="wait">
-            {active && (
-              <motion.div
-                key={active.id}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className="px-6"
-              >
-                <p
-                  className="font-display text-[13px] leading-snug italic sm:text-sm"
-                  style={{ color: "#F1E4EE" }}
-                >
-                  “{active.description}”
-                </p>
-                <p
-                  className="mt-3 text-[10px] font-semibold tracking-[0.14em] uppercase"
-                  style={{ color: GOLD }}
-                >
-                  {active.title}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </button>
       </motion.div>
     </section>
   );
